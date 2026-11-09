@@ -1,0 +1,9 @@
+Programs/*.exe
+*.prp
+*.prn
+*.dbg
+*.pbg
+*.err
+*.bak
+*.log
+*.loc
