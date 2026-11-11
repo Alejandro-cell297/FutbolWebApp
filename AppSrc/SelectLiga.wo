@@ -23,8 +23,8 @@ Object oSelectLiga is a cWebView
     Object oliga_DD is a cligaDataDictionary
     End_Object 
 
-    Set Main_DD To oliga_DD
-    Set Server  To oliga_DD
+    Set Main_DD to oliga_DD
+    Set Server  to oliga_DD
 
 
     Object oList is a cWebList
@@ -32,18 +32,18 @@ Object oSelectLiga is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        Set pbShowHeader to False
+        Set pbShowHeader to True
         Set piSortColumn to 0
 
-        Object oligaNombre is a cWebColumn
+        Object oLigaNombre is a cWebColumn
             Entry_Item liga.Nombre
-            Set psCaption to "liga.Nombre"
+            Set psCaption to "Nombre"
             Set piWidth to 1000
         End_Object 
 
-        Object oligaPais is a cWebColumn
+        Object oLigaPais is a cWebColumn
             Entry_Item liga.Pais
-            Set psCaption to "liga.Pais"
+            Set psCaption to "País"
             Set piWidth to 500
         End_Object 
 
@@ -103,7 +103,7 @@ Object oSelectLiga is a cWebView
 
         Object oSearch is a cWebMenuItem
             Set psCSSClass to "WebPromptMenuItem"
-            Set psCaption to "Search"
+            Set psCaption to "Buscar"
 
             Procedure OnClick
                 Send Search of oList
@@ -113,7 +113,7 @@ Object oSelectLiga is a cWebView
 
         Object oNewButton is a cWebMenuItem
             Set psCSSClass to "WebClearMenuItem"
-            Set psCaption to "New"
+            Set psCaption to "Nuevo"
 
             WebRegisterPath ntNavigateForward oZoomLiga
 
@@ -158,4 +158,4 @@ Object oSelectLiga is a cWebView
     End_Procedure
 
 
-End_Object 
+End_Object

@@ -22,14 +22,14 @@ Object oSelectEquipo is a cWebView
     Set piMaxWidth to 1024
 
     Object oliga_DD is a cligaDataDictionary
-    End_Object 
+    End_Object
 
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
-    End_Object 
+        Set DDO_Server to oliga_DD
+    End_Object
 
-    Set Main_DD To oequipo_DD
-    Set Server  To oequipo_DD
+    Set Main_DD to oequipo_DD
+    Set Server  to oequipo_DD
 
 
     Object oList is a cWebList
@@ -37,20 +37,20 @@ Object oSelectEquipo is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        Set pbShowHeader to False
+        Set pbShowHeader to True
         Set piSortColumn to 0
 
-        Object oequipoNombre is a cWebColumn
+        Object oEquipoNombre is a cWebColumn
             Entry_Item equipo.Nombre
-            Set psCaption to "equipo.Nombre"
+            Set psCaption to "Nombre"
             Set piWidth to 1201
-        End_Object 
+        End_Object
 
-        Object oligaNombre is a cWebColumn
+        Object oLigaNombre is a cWebColumn
             Entry_Item liga.Nombre
-            Set psCaption to "liga.Nombre"
+            Set psCaption to "Liga"
             Set piWidth to 1000
-        End_Object 
+        End_Object
 
         Object oDetailButton is a cWebColumnButton
             Set psCaption to "btn"
@@ -71,7 +71,7 @@ Object oSelectEquipo is a cWebView
                 Move True to NavigateData.bReadOnly
             End_Procedure
 
-        End_Object 
+        End_Object
 
         WebRegisterPath ntNavigateForward oZoomEquipo
 
@@ -102,23 +102,23 @@ Object oSelectEquipo is a cWebView
             Move True to NavigateData.bReadOnly
         End_Procedure
 
-    End_Object 
+    End_Object
 
     Object oActionGroup is a cWebMenuGroup
 
         Object oSearch is a cWebMenuItem
             Set psCSSClass to "WebPromptMenuItem"
-            Set psCaption to "Search"
+            Set psCaption to "Buscar"
 
             Procedure OnClick
                 Send Search of oList
             End_Procedure
 
-        End_Object 
+        End_Object
 
         Object oNewButton is a cWebMenuItem
             Set psCSSClass to "WebClearMenuItem"
-            Set psCaption to "New"
+            Set psCaption to "Nuevo"
 
             WebRegisterPath ntNavigateForward oZoomEquipo
 
@@ -130,8 +130,8 @@ Object oSelectEquipo is a cWebView
                 Move True to NavigateData.bNewRecord
             End_Procedure
 
-        End_Object 
-    End_Object 
+        End_Object
+    End_Object
 
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
         WebSet pbRender of oNewButton to True
@@ -163,4 +163,5 @@ Object oSelectEquipo is a cWebView
     End_Procedure
 
 
-End_Object 
+End_Object
+
