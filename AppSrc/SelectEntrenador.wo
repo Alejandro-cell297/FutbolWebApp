@@ -23,18 +23,18 @@ Object oSelectEntrenador is a cWebView
     Set piMaxWidth to 1024
 
     Object oliga_DD is a cligaDataDictionary
-    End_Object 
+    End_Object
 
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
-    End_Object 
+        Set DDO_Server to oliga_DD
+    End_Object
 
     Object oentrenador_DD is a centrenadorDataDictionary
-        Set DDO_Server To oequipo_DD
-    End_Object 
+        Set DDO_Server to oequipo_DD
+    End_Object
 
-    Set Main_DD To oentrenador_DD
-    Set Server  To oentrenador_DD
+    Set Main_DD to oentrenador_DD
+    Set Server  to oentrenador_DD
 
 
     Object oList is a cWebList
@@ -42,26 +42,26 @@ Object oSelectEntrenador is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        Set pbShowHeader to False
+        Set pbShowHeader to True
         Set piSortColumn to 0
 
-        Object oentrenadorNombre is a cWebColumn
+        Object oEntrenadorNombre is a cWebColumn
             Entry_Item entrenador.Nombre
-            Set psCaption to "entrenador.Nombre"
+            Set psCaption to "Nombre"
             Set piWidth to 600
-        End_Object 
+        End_Object
 
-        Object oentrenadorApellido is a cWebColumn
+        Object oEntrenadorApellido is a cWebColumn
             Entry_Item entrenador.Apellido
-            Set psCaption to "entrenador.Apellido"
+            Set psCaption to "Apellido"
             Set piWidth to 600
-        End_Object 
+        End_Object
 
-        Object oequipoNombre is a cWebColumn
+        Object oEquipoNombre is a cWebColumn
             Entry_Item equipo.Nombre
-            Set psCaption to "equipo.Nombre"
+            Set psCaption to "Equipo"
             Set piWidth to 1201
-        End_Object 
+        End_Object
 
         Object oDetailButton is a cWebColumnButton
             Set psCaption to "btn"
@@ -82,7 +82,7 @@ Object oSelectEntrenador is a cWebView
                 Move True to NavigateData.bReadOnly
             End_Procedure
 
-        End_Object 
+        End_Object
 
         WebRegisterPath ntNavigateForward oZoomEntrenador
 
@@ -113,23 +113,23 @@ Object oSelectEntrenador is a cWebView
             Move True to NavigateData.bReadOnly
         End_Procedure
 
-    End_Object 
+    End_Object
 
     Object oActionGroup is a cWebMenuGroup
 
         Object oSearch is a cWebMenuItem
             Set psCSSClass to "WebPromptMenuItem"
-            Set psCaption to "Search"
+            Set psCaption to "Buscar"
 
             Procedure OnClick
                 Send Search of oList
             End_Procedure
 
-        End_Object 
+        End_Object
 
         Object oNewButton is a cWebMenuItem
             Set psCSSClass to "WebClearMenuItem"
-            Set psCaption to "New"
+            Set psCaption to "Nuevo"
 
             WebRegisterPath ntNavigateForward oZoomEntrenador
 
@@ -141,8 +141,8 @@ Object oSelectEntrenador is a cWebView
                 Move True to NavigateData.bNewRecord
             End_Procedure
 
-        End_Object 
-    End_Object 
+        End_Object
+    End_Object
 
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
         WebSet pbRender of oNewButton to True
@@ -174,4 +174,5 @@ Object oSelectEntrenador is a cWebView
     End_Procedure
 
 
-End_Object 
+End_Object
+
