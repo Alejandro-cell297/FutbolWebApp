@@ -4,6 +4,7 @@
 
 Use cWebView.pkg
 Use cWebPanel.pkg
+Use cWebGroup.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
@@ -26,73 +27,94 @@ Object oZoomJugador is a cWebView
     End_Object 
 
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
+        Set DDO_Server to oliga_DD
     End_Object 
 
     Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server To oequipo_DD
+        Set DDO_Server to oequipo_DD
     End_Object 
 
-    Set Main_DD To ojugador_DD
-    Set Server  To ojugador_DD
+    Set Main_DD to ojugador_DD
+    Set Server  to ojugador_DD
 
 
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
 
-        Object ojugadorNombre is a cWebForm
-            Entry_Item jugador.Nombre
-            Set piColumnSpan to 10
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Nombre"
-        End_Object 
-
-        Object ojugadorApellido is a cWebForm
-            Entry_Item jugador.Apellido
-            Set piColumnSpan to 10
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Apellido"
-        End_Object 
-
-        Object ojugadorNacionalidad is a cWebForm
-            Entry_Item jugador.Nacionalidad
-            Set piColumnSpan to 8
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Nacionalidad"
-        End_Object 
-
-        Object oequipoID is a cWebForm
-            Entry_Item equipo.ID
-            Set piColumnSpan to 2
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Código de equipo"
-            Set pbPromptButton to True
-
-            WebRegisterPath ntNavigateForward oSelectEquipo
-
-            Procedure OnPrompt
-                Send NavigatePath
-            End_Procedure
-        End_Object 
-
-        Object oequipoNombre is a cWebForm
-            Entry_Item equipo.Nombre
+        // Grupo 1: nombre y apellido en la misma fila
+        Object oNombreCompleto_grp is a cWebGroup
+            Set psCaption to "Nombre completo"
             Set piColumnSpan to 12
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Equipo"
-            Set pbPromptButton to True
+            Set piColumnCount to 12
 
-            WebRegisterPath ntNavigateForward oSelectEquipo
+            Object oJugadorNombre is a cWebForm
+                Entry_Item jugador.Nombre
+                Set piColumnSpan to 5
+                Set piColumnIndex to 0
+                Set peLabelPosition to lpTop
+                Set psLabel to "Nombre"
+            End_Object 
 
-            Procedure OnPrompt
-                Send NavigatePath
-            End_Procedure
+            Object oJugadorApellido is a cWebForm
+                Entry_Item jugador.Apellido
+                Set piColumnSpan to 7
+                Set piColumnIndex to 5
+                Set peLabelPosition to lpTop
+                Set psLabel to "Apellido"
+            End_Object 
+        End_Object 
+
+        // Grupo 2: nacionalidad
+        Object oNacionalidad_grp is a cWebGroup
+            Set psCaption to "Nacionalidad"
+            Set piColumnSpan to 12
+            Set piColumnCount to 12
+
+            Object oJugadorNacionalidad is a cWebForm
+                Entry_Item jugador.Nacionalidad
+                Set piColumnSpan to 6
+                Set piColumnIndex to 0
+                Set peLabelPosition to lpTop
+                Set psLabel to "Nacionalidad"
+            End_Object 
+        End_Object 
+
+        // Grupo 3: equipo (tabla padre)
+        Object oEquipo_grp is a cWebGroup
+            Set psCaption to "Equipo"
+            Set piColumnSpan to 12
+            Set piColumnCount to 12
+
+            Object oEquipoID is a cWebForm
+                Entry_Item equipo.ID
+                Set piColumnSpan to 3
+                Set piColumnIndex to 0
+                Set peLabelPosition to lpTop
+                Set psLabel to "Código"
+                Set pbPromptButton to True
+
+                WebRegisterPath ntNavigateForward oSelectEquipo
+
+                Procedure OnPrompt
+                    Send NavigatePath
+                End_Procedure
+            End_Object 
+
+            Object oEquipoNombre is a cWebForm
+                Entry_Item equipo.Nombre
+                Set piColumnSpan to 9
+                Set piColumnIndex to 3
+                Set peLabelPosition to lpTop
+                Set psLabel to "Equipo"
+                Set pbPromptButton to True
+
+                WebRegisterPath ntNavigateForward oSelectEquipo
+
+                Procedure OnPrompt
+                    Send NavigatePath
+                End_Procedure
+            End_Object 
         End_Object 
     End_Object 
 
@@ -100,7 +122,7 @@ Object oZoomJugador is a cWebView
 
         Object oSaveBtn is a cWebMenuItem
             Set psCSSClass to "WebSaveMenuItem"
-            Set psCaption to "Save"
+            Set psCaption to "Guardar"
 
             Procedure OnClick
                 Send Request_Save
@@ -110,7 +132,7 @@ Object oZoomJugador is a cWebView
 
         Object oEditBtn is a cWebMenuItem
             Set psCSSClass to "WebEditMenuItem"
-            Set psCaption to "Edit"
+            Set psCaption to "Editar"
             Procedure OnClick
                 Send ChangeEditMode True
                 Send SetActionButtons
@@ -120,7 +142,7 @@ Object oZoomJugador is a cWebView
 
         Object oDeleteBtn is a cWebMenuItem
             Set psCSSClass to "WebDeleteMenuItem"
-            Set psCaption to "Delete"
+            Set psCaption to "Borrar"
             Set peActionDisplay to adMenu
 
             Procedure OnClick
@@ -131,7 +153,7 @@ Object oZoomJugador is a cWebView
 
         Object oCancelChangesBtn is a cWebMenuItem
             Set psCSSClass to "WebIcon_Refresh"
-            Set psCaption to "Clear Changes"
+            Set psCaption to "Deshacer cambios"
             Set peActionDisplay to adMenu
             Procedure OnClick
                 Send RefreshRecord
@@ -197,4 +219,4 @@ Object oZoomJugador is a cWebView
 
     End_Procedure
 
-End_Object 
+End_Object
