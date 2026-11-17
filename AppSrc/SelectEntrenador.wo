@@ -166,8 +166,8 @@ Object oSelectEntrenador is a cWebView
 
             Case Else // must be nfUndefined
                 // This may be the start of a drilldown query or this may be used for some kind of custom query.
-                // If Row select does main-zoom we don't need this
-                WebSet pbRender of oDetailButton to False
+                // Desde el Dashboard (nfUndefined) dejamos visible el boton de detalle
+                // para poder ir al Zoom con la fila o con el boton (From Main)
 
         Case End
 
@@ -175,4 +175,3 @@ Object oSelectEntrenador is a cWebView
 
 
 End_Object
-
