@@ -219,6 +219,20 @@ Object oZoomLiga is a cWebView
 
         Case End
 
+        // Caption del breadcrumb y de la cabecera:
+        // si hay un registro cargado, su nombre; si no (botón Nuevo), "Nueva liga"
+        Boolean bHayRegistro
+        String sTitulo
+        Get HasRecord of oliga_DD to bHayRegistro
+        If bHayRegistro Begin
+            Move (Trim(liga.Nombre)) to sTitulo
+        End
+        Else Begin
+            Move "Nueva liga" to sTitulo
+        End
+        Send SetHeaderCaption sTitulo
+        Send SetBreadcrumbCaption sTitulo
+
         Send SetActionButtons
 
     End_Procedure

@@ -143,6 +143,20 @@ Object oZoomPosicion is a cWebView
 
         Case End
 
+        // Caption del breadcrumb y de la cabecera:
+        // si hay un registro cargado, su nombre; si no (botón Nuevo), "Nueva posición"
+        Boolean bHayRegistro
+        String sTitulo
+        Get HasRecord of oposicion_DD to bHayRegistro
+        If bHayRegistro Begin
+            Move (Trim(posicion.Nombre)) to sTitulo
+        End
+        Else Begin
+            Move "Nueva posición" to sTitulo
+        End
+        Send SetHeaderCaption sTitulo
+        Send SetBreadcrumbCaption sTitulo
+
         Send SetActionButtons
 
     End_Procedure

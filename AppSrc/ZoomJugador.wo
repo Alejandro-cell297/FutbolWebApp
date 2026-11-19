@@ -237,6 +237,20 @@ Object oZoomJugador is a cWebView
 
         Case End
 
+        // Caption del breadcrumb y de la cabecera:
+        // si hay un registro cargado, su nombre; si no (botón Nuevo), "Nuevo jugador"
+        Boolean bHayRegistro
+        String sTitulo
+        Get HasRecord of ojugador_DD to bHayRegistro
+        If bHayRegistro Begin
+            Move (Trim(jugador.Nombre) + " " + Trim(jugador.Apellido)) to sTitulo
+        End
+        Else Begin
+            Move "Nuevo jugador" to sTitulo
+        End
+        Send SetHeaderCaption sTitulo
+        Send SetBreadcrumbCaption sTitulo
+
         Send SetActionButtons
 
     End_Procedure
