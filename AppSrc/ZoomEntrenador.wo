@@ -215,6 +215,20 @@ Object oZoomEntrenador is a cWebView
 
         Case End
 
+        // Caption del breadcrumb y de la cabecera:
+        // si hay un registro cargado, su nombre; si no (botón Nuevo), "Nuevo entrenador"
+        Boolean bHayRegistro
+        String sTitulo
+        Get HasRecord of oentrenador_DD to bHayRegistro
+        If bHayRegistro Begin
+            Move (Trim(entrenador.Nombre) + " " + Trim(entrenador.Apellido)) to sTitulo
+        End
+        Else Begin
+            Move "Nuevo entrenador" to sTitulo
+        End
+        Send SetHeaderCaption sTitulo
+        Send SetBreadcrumbCaption sTitulo
+
         Send SetActionButtons
 
     End_Procedure
