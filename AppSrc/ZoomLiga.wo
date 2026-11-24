@@ -97,6 +97,10 @@ Object oZoomLiga is a cWebView
                 Set piColumnSpan to 6
                 Set piColumnIndex to 0
 
+                // NAVEGACIÓN FROM PARENT: oZoomLiga -> oSelectEquipo.
+                // Voy del padre (liga) a la lista de sus hijos (equipo): tipo nfFromParent.
+                // DataFlex acota la lista solo: únicamente salen los equipos de esta liga.
+                // Vista que invoca: oZoomLiga | Objeto que invoca: oVerEquiposBtn | Vista destino: oSelectEquipo.
                 WebRegisterPath ntNavigateForward oSelectEquipo
 
                 Procedure OnClick
@@ -105,6 +109,8 @@ Object oZoomLiga is a cWebView
             End_Object 
 
             // 2) Lista dentro del Zoom con los equipos de esta liga
+            // Lista de equipos dentro del Zoom (no es una navegación): como no viajo, DataFlex no acota solo.
+            // Por eso oequipo_DD tiene Constrain_File To liga.File_Number y la lista usa Set Server to oequipo_DD.
             Object oEquiposList is a cWebList
                 Set Server to oequipo_DD
                 Set piColumnSpan to 12
@@ -191,6 +197,7 @@ Object oZoomLiga is a cWebView
         End
     End_Procedure
 
+    // VUELTA: al guardar o borrar, el Zoom se cierra con NavigateClose y vuelve a la vista de debajo.
     Procedure OnViewSaved Handle hoServer Boolean bChanged
         // Close after save
         Send NavigateClose Self

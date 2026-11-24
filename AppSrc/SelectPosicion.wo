@@ -50,6 +50,10 @@ Object oSelectPosicion is a cWebView
             Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
             Set peAlign to alignRight
 
+            // NAVEGACIÓN FROM MAIN (botón de detalle de cada fila): oSelectPosicion -> oZoomPosicion.
+            // Las dos vistas usan la misma tabla principal (posicion), por eso el tipo es nfFromMain.
+            // Vista que invoca: oSelectPosicion | Objeto que invoca: oDetailButton | Vista destino: oZoomPosicion.
+            // En OnGetNavigateForwardData pongo bReadOnly a True: el Zoom se abre en solo lectura.
             WebRegisterPath ntNavigateForward oZoomPosicion
 
             Procedure OnClick
@@ -64,6 +68,11 @@ Object oSelectPosicion is a cWebView
 
         WebRegisterPath ntNavigateForward oZoomPosicion
 
+        // CLIC EN UNA FILA: el objeto que invoca es oList. Lo que hace depende de cómo llegué a esta lista:
+        //  - nfUndefined (vengo del Dashboard) -> FROM MAIN: voy a oZoomPosicion con el registro pulsado.
+        //  - nfFromParent (vengo del padre, lista ya acotada) -> FROM MAIN: voy a oZoomPosicion.
+        //  - nfFromChild (vengo de la lupa de un Zoom hijo) -> elijo el padre y vuelvo con NavigateClose.
+        //  - nfFromMain (vengo de un Zoom de la misma tabla) -> vuelvo con NavigateClose.
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
             Get GetNavigateData to NavigateData
@@ -109,6 +118,8 @@ Object oSelectPosicion is a cWebView
             Set psCSSClass to "WebClearMenuItem"
             Set psCaption to "Nuevo"
 
+            // NAVEGACIÓN FROM MAIN (botón Nuevo): oSelectPosicion -> oZoomPosicion.
+            // Objeto que invoca: oNewButton. Pongo bNewRecord a True: el Zoom se abre vacío para crear uno nuevo.
             WebRegisterPath ntNavigateForward oZoomPosicion
 
             Procedure OnClick
@@ -123,6 +134,10 @@ Object oSelectPosicion is a cWebView
     End_Object 
 
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+        // Títulos: arriba "Lista de posiciones" y en la miga de pan "Posiciones"
+        Send SetHeaderCaption "Lista de posiciones"
+        Send SetBreadcrumbCaption "Posiciones"
+
         WebSet pbRender of oNewButton to True
         WebSet pbRender of oDetailButton to True
 

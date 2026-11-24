@@ -64,6 +64,10 @@ Object oZoomEquipo is a cWebView
                 Set psLabel to "Código"
                 Set pbPromptButton to True
 
+                // NAVEGACIÓN FROM CHILD (lupa): oZoomEquipo -> oSelectLiga.
+                // Voy de la tabla hija (equipo) a buscar su padre (liga): tipo nfFromChild.
+                // Vista que invoca: oZoomEquipo | Objeto que invoca: este campo con lupa | Vista destino: oSelectLiga.
+                // Al pulsar una fila, oSelectLiga hace NavigateClose y este Zoom se rellena con el liga elegido.
                 WebRegisterPath ntNavigateForward oSelectLiga
 
                 Procedure OnPrompt
@@ -79,6 +83,10 @@ Object oZoomEquipo is a cWebView
                 Set psLabel to "Liga"
                 Set pbPromptButton to True
 
+                // NAVEGACIÓN FROM CHILD (lupa): oZoomEquipo -> oSelectLiga.
+                // Voy de la tabla hija (equipo) a buscar su padre (liga): tipo nfFromChild.
+                // Vista que invoca: oZoomEquipo | Objeto que invoca: este campo con lupa | Vista destino: oSelectLiga.
+                // Al pulsar una fila, oSelectLiga hace NavigateClose y este Zoom se rellena con el liga elegido.
                 WebRegisterPath ntNavigateForward oSelectLiga
 
                 Procedure OnPrompt
@@ -157,6 +165,7 @@ Object oZoomEquipo is a cWebView
         End
     End_Procedure
 
+    // VUELTA: al guardar o borrar, el Zoom se cierra con NavigateClose y vuelve a la vista de debajo.
     Procedure OnViewSaved Handle hoServer Boolean bChanged
         // Close after save
         Send NavigateClose Self

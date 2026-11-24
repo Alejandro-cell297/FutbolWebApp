@@ -56,6 +56,10 @@ Object oSelectLiga is a cWebView
             Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
             Set peAlign to alignRight
 
+            // NAVEGACIÓN FROM MAIN (botón de detalle de cada fila): oSelectLiga -> oZoomLiga.
+            // Las dos vistas usan la misma tabla principal (liga), por eso el tipo es nfFromMain.
+            // Vista que invoca: oSelectLiga | Objeto que invoca: oDetailButton | Vista destino: oZoomLiga.
+            // En OnGetNavigateForwardData pongo bReadOnly a True: el Zoom se abre en solo lectura.
             WebRegisterPath ntNavigateForward oZoomLiga
 
             Procedure OnClick
@@ -70,6 +74,11 @@ Object oSelectLiga is a cWebView
 
         WebRegisterPath ntNavigateForward oZoomLiga
 
+        // CLIC EN UNA FILA: el objeto que invoca es oList. Lo que hace depende de cómo llegué a esta lista:
+        //  - nfUndefined (vengo del Dashboard) -> FROM MAIN: voy a oZoomLiga con el registro pulsado.
+        //  - nfFromParent (vengo del padre, lista ya acotada) -> FROM MAIN: voy a oZoomLiga.
+        //  - nfFromChild (vengo de la lupa de un Zoom hijo) -> elijo el padre y vuelvo con NavigateClose.
+        //  - nfFromMain (vengo de un Zoom de la misma tabla) -> vuelvo con NavigateClose.
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
             Get GetNavigateData to NavigateData
@@ -115,6 +124,8 @@ Object oSelectLiga is a cWebView
             Set psCSSClass to "WebClearMenuItem"
             Set psCaption to "Nuevo"
 
+            // NAVEGACIÓN FROM MAIN (botón Nuevo): oSelectLiga -> oZoomLiga.
+            // Objeto que invoca: oNewButton. Pongo bNewRecord a True: el Zoom se abre vacío para crear uno nuevo.
             WebRegisterPath ntNavigateForward oZoomLiga
 
             Procedure OnClick
@@ -129,6 +140,10 @@ Object oSelectLiga is a cWebView
     End_Object 
 
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+        // Títulos: arriba "Lista de ligas" y en la miga de pan "Ligas"
+        Send SetHeaderCaption "Lista de ligas"
+        Send SetBreadcrumbCaption "Ligas"
+
         WebSet pbRender of oNewButton to True
         WebSet pbRender of oDetailButton to True
 

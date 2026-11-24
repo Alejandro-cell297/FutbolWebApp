@@ -72,6 +72,10 @@ Object oSelectJugador is a cWebView
             Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
             Set peAlign to alignRight
 
+            // NAVEGACIÓN FROM MAIN (botón de detalle de cada fila): oSelectJugador -> oZoomJugador.
+            // Las dos vistas usan la misma tabla principal (jugador), por eso el tipo es nfFromMain.
+            // Vista que invoca: oSelectJugador | Objeto que invoca: oDetailButton | Vista destino: oZoomJugador.
+            // En OnGetNavigateForwardData pongo bReadOnly a True: el Zoom se abre en solo lectura.
             WebRegisterPath ntNavigateForward oZoomJugador
 
             Procedure OnClick
@@ -86,6 +90,11 @@ Object oSelectJugador is a cWebView
 
         WebRegisterPath ntNavigateForward oZoomJugador
 
+        // CLIC EN UNA FILA: el objeto que invoca es oList. Lo que hace depende de cómo llegué a esta lista:
+        //  - nfUndefined (vengo del Dashboard) -> FROM MAIN: voy a oZoomJugador con el registro pulsado.
+        //  - nfFromParent (vengo del padre, lista ya acotada) -> FROM MAIN: voy a oZoomJugador.
+        //  - nfFromChild (vengo de la lupa de un Zoom hijo) -> elijo el padre y vuelvo con NavigateClose.
+        //  - nfFromMain (vengo de un Zoom de la misma tabla) -> vuelvo con NavigateClose.
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
             Get GetNavigateData to NavigateData
@@ -131,6 +140,8 @@ Object oSelectJugador is a cWebView
             Set psCSSClass to "WebClearMenuItem"
             Set psCaption to "Nuevo"
 
+            // NAVEGACIÓN FROM MAIN (botón Nuevo): oSelectJugador -> oZoomJugador.
+            // Objeto que invoca: oNewButton. Pongo bNewRecord a True: el Zoom se abre vacío para crear uno nuevo.
             WebRegisterPath ntNavigateForward oZoomJugador
 
             Procedure OnClick
@@ -145,6 +156,10 @@ Object oSelectJugador is a cWebView
     End_Object
 
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+        // Títulos: arriba "Lista de jugadores" y en la miga de pan "Jugadores"
+        Send SetHeaderCaption "Lista de jugadores"
+        Send SetBreadcrumbCaption "Jugadores"
+
         WebSet pbRender of oNewButton to True
         WebSet pbRender of oDetailButton to True
 
