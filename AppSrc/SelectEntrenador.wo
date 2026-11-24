@@ -72,6 +72,10 @@ Object oSelectEntrenador is a cWebView
             Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
             Set peAlign to alignRight
 
+            // NAVEGACIÓN FROM MAIN (botón de detalle de cada fila): oSelectEntrenador -> oZoomEntrenador.
+            // Las dos vistas usan la misma tabla principal (entrenador), por eso el tipo es nfFromMain.
+            // Vista que invoca: oSelectEntrenador | Objeto que invoca: oDetailButton | Vista destino: oZoomEntrenador.
+            // En OnGetNavigateForwardData pongo bReadOnly a True: el Zoom se abre en solo lectura.
             WebRegisterPath ntNavigateForward oZoomEntrenador
 
             Procedure OnClick
@@ -86,6 +90,11 @@ Object oSelectEntrenador is a cWebView
 
         WebRegisterPath ntNavigateForward oZoomEntrenador
 
+        // CLIC EN UNA FILA: el objeto que invoca es oList. Lo que hace depende de cómo llegué a esta lista:
+        //  - nfUndefined (vengo del Dashboard) -> FROM MAIN: voy a oZoomEntrenador con el registro pulsado.
+        //  - nfFromParent (vengo del padre, lista ya acotada) -> FROM MAIN: voy a oZoomEntrenador.
+        //  - nfFromChild (vengo de la lupa de un Zoom hijo) -> elijo el padre y vuelvo con NavigateClose.
+        //  - nfFromMain (vengo de un Zoom de la misma tabla) -> vuelvo con NavigateClose.
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
             Get GetNavigateData to NavigateData
@@ -131,6 +140,8 @@ Object oSelectEntrenador is a cWebView
             Set psCSSClass to "WebClearMenuItem"
             Set psCaption to "Nuevo"
 
+            // NAVEGACIÓN FROM MAIN (botón Nuevo): oSelectEntrenador -> oZoomEntrenador.
+            // Objeto que invoca: oNewButton. Pongo bNewRecord a True: el Zoom se abre vacío para crear uno nuevo.
             WebRegisterPath ntNavigateForward oZoomEntrenador
 
             Procedure OnClick
@@ -145,6 +156,10 @@ Object oSelectEntrenador is a cWebView
     End_Object
 
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+        // Títulos: arriba "Lista de entrenadores" y en la miga de pan "Entrenadores"
+        Send SetHeaderCaption "Lista de entrenadores"
+        Send SetBreadcrumbCaption "Entrenadores"
+
         WebSet pbRender of oNewButton to True
         WebSet pbRender of oDetailButton to True
 

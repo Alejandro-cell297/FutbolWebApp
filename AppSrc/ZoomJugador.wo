@@ -96,6 +96,10 @@ Object oZoomJugador is a cWebView
                 Set psLabel to "Código"
                 Set pbPromptButton to True
 
+                // NAVEGACIÓN FROM CHILD (lupa): oZoomJugador -> oSelectEquipo.
+                // Voy de la tabla hija (jugador) a buscar su padre (equipo): tipo nfFromChild.
+                // Vista que invoca: oZoomJugador | Objeto que invoca: este campo con lupa | Vista destino: oSelectEquipo.
+                // Al pulsar una fila, oSelectEquipo hace NavigateClose y este Zoom se rellena con el equipo elegido.
                 WebRegisterPath ntNavigateForward oSelectEquipo
 
                 Procedure OnPrompt
@@ -111,6 +115,10 @@ Object oZoomJugador is a cWebView
                 Set psLabel to "Equipo"
                 Set pbPromptButton to True
 
+                // NAVEGACIÓN FROM CHILD (lupa): oZoomJugador -> oSelectEquipo.
+                // Voy de la tabla hija (jugador) a buscar su padre (equipo): tipo nfFromChild.
+                // Vista que invoca: oZoomJugador | Objeto que invoca: este campo con lupa | Vista destino: oSelectEquipo.
+                // Al pulsar una fila, oSelectEquipo hace NavigateClose y este Zoom se rellena con el equipo elegido.
                 WebRegisterPath ntNavigateForward oSelectEquipo
 
                 Procedure OnPrompt
@@ -131,6 +139,10 @@ Object oZoomJugador is a cWebView
                 Set piColumnSpan to 6
                 Set piColumnIndex to 0
 
+                // NAVEGACIÓN UNDEFINED: oZoomJugador -> oSelectPosicion.
+                // jugador y posicion no tienen relación directa (van por jugadorposicion, N:M), así que no se
+                // intercambia información: ntNavigateForwardCustom, tipo nfUndefined.
+                // Vista que invoca: oZoomJugador | Objeto que invoca: oVerPosicionesBtn | Vista destino: oSelectPosicion.
                 WebRegisterPath ntNavigateForwardCustom oSelectPosicion
 
                 Procedure OnClick
@@ -209,6 +221,7 @@ Object oZoomJugador is a cWebView
         End
     End_Procedure
 
+    // VUELTA: al guardar o borrar, el Zoom se cierra con NavigateClose y vuelve a la vista de debajo.
     Procedure OnViewSaved Handle hoServer Boolean bChanged
         // Close after save
         Send NavigateClose Self

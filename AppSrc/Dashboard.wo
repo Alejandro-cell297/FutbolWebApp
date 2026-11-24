@@ -61,6 +61,9 @@ Object oDashboard is a cWebView
                 Set psCSSClass to "Tile LightAlternate"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Ligas</div><div class="Tile_Subtitle">Lista de ligas</div></div>'
 
+                // NAVEGACIÓN UNDEFINED: oDashboard -> oSelectLiga.
+                // El Dashboard no tiene tabla, no hay relación ni intercambio de información:
+                // ntNavigateForwardCustom, tipo nfUndefined. Objeto que invoca: oLigasTile.
                 WebRegisterPath ntNavigateForwardCustom oSelectLiga
 
                 Procedure OnClick String sId String sParam
@@ -75,6 +78,9 @@ Object oDashboard is a cWebView
                 Set psCSSClass to "Tile Dark"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Equipos</div><div class="Tile_Subtitle">Lista de equipos</div></div>'
 
+                // NAVEGACIÓN UNDEFINED: oDashboard -> oSelectEquipo.
+                // El Dashboard no tiene tabla, no hay relación ni intercambio de información:
+                // ntNavigateForwardCustom, tipo nfUndefined. Objeto que invoca: oEquiposTile.
                 WebRegisterPath ntNavigateForwardCustom oSelectEquipo
 
                 Procedure OnClick String sId String sParam
@@ -90,6 +96,9 @@ Object oDashboard is a cWebView
                 Set psCSSClass to "Tile DarkAlternate"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Entrenadores</div><div class="Tile_Subtitle">Lista de entrenadores</div></div>'
 
+                // NAVEGACIÓN UNDEFINED: oDashboard -> oSelectEntrenador.
+                // El Dashboard no tiene tabla, no hay relación ni intercambio de información:
+                // ntNavigateForwardCustom, tipo nfUndefined. Objeto que invoca: oEntrenadoresTile.
                 WebRegisterPath ntNavigateForwardCustom oSelectEntrenador
 
                 Procedure OnClick String sId String sParam
@@ -104,6 +113,9 @@ Object oDashboard is a cWebView
                 Set psCSSClass to "Tile Light"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Jugadores</div><div class="Tile_Subtitle">Lista de jugadores</div></div>'
 
+                // NAVEGACIÓN UNDEFINED: oDashboard -> oSelectJugador.
+                // El Dashboard no tiene tabla, no hay relación ni intercambio de información:
+                // ntNavigateForwardCustom, tipo nfUndefined. Objeto que invoca: oJugadoresTile.
                 WebRegisterPath ntNavigateForwardCustom oSelectJugador
 
                 Procedure OnClick String sId String sParam
@@ -119,6 +131,9 @@ Object oDashboard is a cWebView
                 Set psCSSClass to "Tile LightAlternate"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Posiciones</div><div class="Tile_Subtitle">Lista de posiciones</div></div>'
 
+                // NAVEGACIÓN UNDEFINED: oDashboard -> oSelectPosicion.
+                // El Dashboard no tiene tabla, no hay relación ni intercambio de información:
+                // ntNavigateForwardCustom, tipo nfUndefined. Objeto que invoca: oPosicionesTile.
                 WebRegisterPath ntNavigateForwardCustom oSelectPosicion
 
                 Procedure OnClick String sId String sParam
